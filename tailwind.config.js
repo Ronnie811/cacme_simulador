@@ -1,6 +1,7 @@
 import forms from '@tailwindcss/forms';
 
 export default {
+  prefix: 'cacme-',
   content: ['./*.html','./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {

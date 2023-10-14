@@ -39,7 +39,7 @@ const App = () => {
   const [totalInterest, setTotalInterest] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
   const [clickCount, setClickCount] = useState(0);
-  const [pnlAmortizacionStyle, setPnlAmortizacionStyle] = useState("hidden");
+  const [pnlAmortizacionStyle, setPnlAmortizacionStyle] = useState("cacme-hidden");
   const [errorMessage, setErrorMessage] = useState("");
   const errorTimeout = useRef(null);
   
@@ -66,7 +66,7 @@ const App = () => {
     }
 
     setClickCount(clickCount+1);
-    document.getElementById("pnl-amortizacion").classList.remove("hidden");
+    document.getElementById("pnl-amortizacion").classList.remove("cacme-hidden");
   };
 
   const handleCloseError = () => {
@@ -137,50 +137,46 @@ const App = () => {
   
   }, [clickCount]); // Dependen de estas variables
   
-  
-  
-  
-
   return (
-    <div className="container mx-auto p-4 relative">
+    <div className="cacme-container cacme-mx-auto cacme-p-4 cacme-relative">
       {errorMessage.length > 0 && (
-      <div className="absolute top-0 right-0 bg-red-500 text-white p-4 rounded-lg shadow-lg cursor-pointer z-10" onClick={handleCloseError}>
-        <span className="absolute top-2 right-2 font-bold cursor-pointer" title="Cerrar">✕</span>
-        <ul className="mt-2 mr-2">
+      <div className="cacme-fixed cacme-top-0 cacme-right-0 cacme-bg-red-500 cacme-text-white cacme-p-4 cacme-rounded-lg cacme-shadow-lg cacme-cursor-pointer cacme-z-10" onClick={handleCloseError}>
+        <span className="cacme-absolute cacme-top-2 cacme-right-2 cacme-font-bold cacme-cursor-pointer" title="Cerrar">✕</span>
+        <ul className="cacme-mt-2 cacme-mr-2">
           {errorMessage.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
         </ul>
       </div>
     )}
-      <h1 className="text-3xl font-bold mb-4">Cotizador de crédito</h1>
+      <h1 className="cacme-text-3xl cacme-font-bold cacme-mb-4">Cotizador de crédito</h1>
       
-      <form className="flex flex-col w-1/3 mb-10">
-        <div className="mb-5 flex flex-col">
+      <form className="cacme-flex cacme-flex-col cacme-w-1/3 cacme-mb-10">
+        <div className="cacme-mb-5 cacme-flex cacme-flex-col">
           <label>Tipo de crédito </label>
-          <select className="border" onChange={e => { handleChangeCreditType(e); document.getElementById("pnl-amortizacion").classList.add("hidden") }}>
+          <select className="cacme-border" onChange={e => { handleChangeCreditType(e); document.getElementById("pnl-amortizacion").classList.add("cacme-hidden") }}>
             {creditConfigs.map((config, index) => (
               <option key={index} value={index}>{config.tipoCredito}</option>
             ))}
           </select>
         </div>
 
-        <div className="mb-5 bg-sky-200 flex rounded-lg">
-          <div className="ml-5">ℹ️</div>
-          <div className="ml-3"> Monto mínimo: {currentCreditConfig.montoMinimo}, Monto máximo: {currentCreditConfig.montoMaximo}</div>
+        <div className="cacme-mb-5 cacme-bg-sky-200 cacme-flex cacme-rounded-lg">
+          <div className="cacme-ml-5">ℹ️</div>
+          <div className="cacme-ml-3"> Monto mínimo: ${currentCreditConfig.montoMinimo}, Monto máximo: ${currentCreditConfig.montoMaximo}</div>
         </div>
         
-        <div className="mb-5 flex flex-col">
+        <div className="cacme-mb-5 cacme-flex cacme-flex-col">
           <label>Monto </label>
-          <input type="number" className="border" onChange={e => {setAmount(Number(e.target.value));document.getElementById("pnl-amortizacion").classList.add("hidden");}} />
+          <input type="number" className="cacme-border" onChange={e => {setAmount(Number(e.target.value));document.getElementById("pnl-amortizacion").classList.add("cacme-hidden");}} />
         </div>
 
-        <div className="mb-5 flex flex-col">
+        <div className="cacme-mb-5 cacme-flex cacme-flex-col">
           <label>Plazo de pago en meses</label>
-          <input type="number" className="border" onChange={e => {setLoanTerm(Number(e.target.value));document.getElementById("pnl-amortizacion").classList.add("hidden");}} />
+          <input type="number" className="cacme-border" onChange={e => {setLoanTerm(Number(e.target.value));document.getElementById("pnl-amortizacion").classList.add("cacme-hidden");}} />
         </div>
 
-        <div className="mb-5">
+        <div className="cacme-mb-5">
           <input type="radio" id="fixed" name="paymentType" value="Cuota fija" checked={paymentType === "Cuota fija"} onChange={e => setPaymentType(e.target.value)} />
           <label htmlFor="fixed">&nbsp;Cuota fija&nbsp;&nbsp;&nbsp;&nbsp;</label>
           
@@ -188,39 +184,39 @@ const App = () => {
           <label htmlFor="variable">&nbsp;Capital fijo</label>
         </div>
 
-        <button type="button"  className="border p-2 rounded-full bg-indigo-100" onClick={handleQuote}>
+        <button type="button"  className="cacme-border cacme-p-2 cacme-rounded-full cacme-bg-indigo-100" onClick={handleQuote}>
           Cotizar
         </button>
       </form>
-      <div className="mt-5">
+      <div className="cacme-mt-5">
       <div id="pnl-amortizacion" className={pnlAmortizacionStyle}>
         <h2>Tasa Nominal: {currentCreditConfig.interes}</h2>
         <h2>Tasa Efectiva: {effectiveRate.toFixed(2)}%</h2>
-        <div className="grid grid-cols-5 border mt-5">
+        <div className="cacme-grid cacme-grid-cols-5 cacme-border-[#21273c] cacme-mt-5 cacme-bg-[#21273c]">
           {/* Encabezado */}
-          <div className="col-span-1 font-bold p-2">Nro</div>
-          <div className="col-span-1 font-bold p-2">Capital</div>
-          <div className="col-span-1 font-bold p-2">Interés</div>
-          <div className="col-span-1 font-bold p-2">Cuota</div>
-          <div className="col-span-1 font-bold p-2">Saldo</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-text-white">Nro</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-text-white">Capital</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-text-white">Interés</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-text-white">Cuota</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-text-white">Saldo</div>
 
           {/* Cuerpo */}
           {amortizationTable.map((row, index) => (
             <React.Fragment key={index}>
-              <div className={`col-span-1 p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{row.Nro}</div>
-              <div className={`col-span-1 p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{row.Capital.toFixed(2)}</div>
-              <div className={`col-span-1 p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{row.Interes.toFixed(2)}</div>
-              <div className={`col-span-1 p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{row.Cuota.toFixed(2)}</div>
-              <div className={`col-span-1 p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{Math.abs(row.Saldo.toFixed(2))}</div>
+              <div className={`cacme-col-span-1 cacme-p-2 ${index % 2 === 0 ? 'cacme-bg-gray-100' : 'cacme-bg-white'}`}>{row.Nro}</div>
+              <div className={`cacme-col-span-1 cacme-p-2 ${index % 2 === 0 ? 'cacme-bg-gray-100' : 'cacme-bg-white'}`}>{row.Capital.toFixed(2)}</div>
+              <div className={`cacme-col-span-1 cacme-p-2 ${index % 2 === 0 ? 'cacme-bg-gray-100' : 'cacme-bg-white'}`}>{row.Interes.toFixed(2)}</div>
+              <div className={`cacme-col-span-1 cacme-p-2 ${index % 2 === 0 ? 'cacme-bg-gray-100' : 'cacme-bg-white'}`}>{row.Cuota.toFixed(2)}</div>
+              <div className={`cacme-col-span-1 cacme-p-2 ${index % 2 === 0 ? 'cacme-bg-gray-100' : 'cacme-bg-white'}`}>{Math.abs(row.Saldo.toFixed(2))}</div>
             </React.Fragment>
           ))}
 
           {/* Pie */}
-          <div className="col-span-1 font-bold p-2 bg-gray-300">Total:</div>
-          <div className="col-span-1 font-bold p-2 bg-gray-300">{loanTerm}</div>
-          <div className="col-span-1 font-bold p-2 bg-gray-300">{totalCapital.toFixed(2)}</div>
-          <div className="col-span-1 font-bold p-2 bg-gray-300">{totalInterest.toFixed(2)}</div>
-          <div className="col-span-1 font-bold p-2 bg-gray-300">{totalPayment.toFixed(2)}</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">Total:</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{loanTerm}</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalCapital.toFixed(2)}</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalInterest.toFixed(2)}</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalPayment.toFixed(2)}</div>
         </div>
       </div>
       </div>
