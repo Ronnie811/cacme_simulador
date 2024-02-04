@@ -5,7 +5,7 @@ const creditConfigs = [
     "tipoCredito": "Consumo",
     "interes": 15.5,
     "montoMinimo": 1,
-    "montoMaximo": 1000000
+    "montoMaximo": 50000
   },
   {
     "tipoCredito": "Microcrédito minorista",
@@ -213,10 +213,10 @@ const App = () => {
 
           {/* Pie */}
           <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">Total:</div>
-          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{loanTerm}</div>
           <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalCapital.toFixed(2)}</div>
           <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalInterest.toFixed(2)}</div>
           <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">{totalPayment.toFixed(2)}</div>
+          <div className="cacme-col-span-1 cacme-font-bold cacme-p-2 cacme-bg-gray-300">0</div>
         </div>
       </div>
       </div>
